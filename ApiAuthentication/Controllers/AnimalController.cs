@@ -44,6 +44,12 @@ namespace ApiHelpet.Controllers
         [HttpGet("{id}"), Authorize]
         public async Task<ActionResult<Animal>> GetAnimal(int id)
         {
+            var currentUserId = await GetCurrentUserId();
+            if (currentUserId == null)
+            {
+                return Unauthorized();
+            }
+
             var animal = await _context.Animals.FindAsync(id);
 
             if (animal == null)
