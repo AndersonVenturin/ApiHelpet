@@ -57,6 +57,11 @@ namespace ApiHelpet.Controllers
                 return NotFound();
             }
 
+            if (animal.UserCode != currentUserId)
+            {
+                return Forbid();
+            }
+
             return animal;
         }
 
